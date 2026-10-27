@@ -1,4 +1,4 @@
-STRONG = "Tr0ub4dor&3-Correct-Horse"
+STRONG = "TnsiasRu-i3o283GF4923h2kl3hi2ghh72783h2"
 
 
 def test_register_login_me(client):
@@ -16,7 +16,7 @@ def test_register_login_me(client):
 
 
 def test_weak_password_rejected(client):
-    r = client.post("/auth/register", json={"email": "w@example.com", "password": "short"})
+    r = client.post("/auth/register", json={"email": "w@example.com", "password": "pass"})
     assert r.status_code == 400
 
 

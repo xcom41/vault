@@ -47,8 +47,8 @@ lab2_vault/
 
 ### 1. Клонирование репозитория
 ```bash
-git clone https://github.com
-cd lab2_vault
+git clone https://github.com/xcom41/vault.git
+cd vault
 ```
 
 ### 2. Настройка виртуального окружения
