@@ -23,7 +23,6 @@ def db_session(tmp_path, monkeypatch):
     TestingSession = sessionmaker(bind=engine, autoflush=False, autocommit=False)
     session = TestingSession()
 
-    # Подменяем SessionLocal в контексте GraphQL на нашу тестовую фабрику
     monkeypatch.setattr(graphql_context, "SessionLocal", TestingSession)
 
     try:

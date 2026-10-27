@@ -16,7 +16,14 @@ mutation = MutationType()
 
 @query.field("me")
 def resolve_me(_, info):
-    return info.context["user"]
+    user = info.context["user"]
+    return {
+        "id": user.id,
+        "email": user.email,
+        "isActive": user.is_active,
+        "isAdmin": user.is_admin,
+        "createdAt": user.created_at.isoformat(),
+    }
 
 
 @query.field("users")
@@ -26,7 +33,18 @@ def resolve_users(_, info, search=None, limit=50, offset=0):
     q = db.query(User)
     if search:
         q = q.filter(User.email.ilike(f"%{search}%"))
-    return q.offset(offset).limit(limit).all()
+    users = q.offset(offset).limit(limit).all()
+
+    return [
+        {
+            "id": u.id,
+            "email": u.email,
+            "isActive": u.is_active,
+            "isAdmin": u.is_admin,
+            "createdAt": u.created_at.isoformat(),
+        }
+        for u in users
+    ]
 
 
 @query.field("clients")
