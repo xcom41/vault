@@ -3,5 +3,5 @@
   <component name="Black">
     <option name="sdkName" value="Python 3.13 (lab2_vault)" />
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.13 (lab2_vault)" project-jdk-type="Python SDK" />
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.13 (vault)" project-jdk-type="Python SDK" />
 </project>

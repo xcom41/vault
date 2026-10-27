@@ -108,7 +108,7 @@ python run.py
 Сервер запустится по адресу: **`http://localhost:8000`**
 
 ### Available Endpoints:
-* **`http://localhost:8000/auth/*`** — REST-эндпоинты аутентификации.
+* **`http://localhost:8000/admin`** — Admin-панель.
 * **`http://localhost:8000/graphql`** — Интерактивная среда выполнения GraphQL-запросов (GraphQL Playground).
 * **`http://localhost:8000/admin`** — Веб-интерфейс панели администратора.
 

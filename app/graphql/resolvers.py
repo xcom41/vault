@@ -31,8 +31,19 @@ def resolve_users(_, info, search=None, limit=50, offset=0):
 
 @query.field("clients")
 def resolve_clients(_, info):
-    return info.context["db"].query(OAuthClient).all()
-
+    db = info.context["db"]
+    clients = db.query(OAuthClient).all()
+    return [
+        {
+            "id": c.id,
+            "clientId": c.client_id,
+            "name": c.name,
+            "isConfidential": c.is_confidential,
+            "redirectUris": c.redirect_uris,
+            "createdAt": c.created_at.isoformat(),
+        }
+        for c in clients
+    ]
 
 @query.field("auditEvents")
 @convert_kwargs_to_snake_case
@@ -76,7 +87,15 @@ def resolve_create_client(_, info, name, is_confidential=True):
     db.commit()
     db.refresh(client)
     write_event(db, "client.created", client_id=client.client_id, metadata={"name": name})
-    return client
+
+    return {
+        "id": client.id,
+        "clientId": client.client_id,
+        "name": client.name,
+        "isConfidential": client.is_confidential,
+        "redirectUris": client.redirect_uris,
+        "createdAt": client.created_at.isoformat(),
+    }
 
 
 @mutation.field("disableUser")

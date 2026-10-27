@@ -1,7 +1,4 @@
 import os
-import tempfile
-from pathlib import Path
-
 import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
@@ -12,18 +9,23 @@ os.environ.setdefault("JWT_SECRET", "test-secret")
 os.environ.setdefault("PASSWORD_PEPPER", "test-pepper")
 os.environ.setdefault("PASSWORD_MIN_LENGTH", "12")
 
-from app.db.base import Base  # noqa: E402
-from app.db.session import get_db  # noqa: E402
-from app.main import app  # noqa: E402
+from app.db.base import Base
+from app.db.session import get_db
+from app.main import app
+import app.graphql.context as graphql_context
 
 
 @pytest.fixture()
-def db_session(tmp_path):
+def db_session(tmp_path, monkeypatch):
     db_path = tmp_path / "test.db"
     engine = create_engine(f"sqlite:///{db_path}", connect_args={"check_same_thread": False})
     Base.metadata.create_all(engine)
     TestingSession = sessionmaker(bind=engine, autoflush=False, autocommit=False)
     session = TestingSession()
+
+    # Подменяем SessionLocal в контексте GraphQL на нашу тестовую фабрику
+    monkeypatch.setattr(graphql_context, "SessionLocal", TestingSession)
+
     try:
         yield session
     finally:
