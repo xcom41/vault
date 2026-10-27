@@ -38,13 +38,18 @@ function showLogin() {
 }
 
 async function loadClients() {
-    const data = await gql(`{ clients { id clientId name isConfidential } }`);
-    const body = $("clients-body");
-    body.innerHTML = "";
-    for (const c of data.clients) {
-        const tr = document.createElement("tr");
-        tr.innerHTML = `<td>${c.id}</td><td>${c.clientId}</td><td>${c.name}</td><td>${c.isConfidential}</td>`;
-        body.appendChild(tr);
+    try {
+        const data = await gql(`{ clients { id clientId name isConfidential } }`);
+        const body = $("clients-body");
+        body.innerHTML = "";
+        for (const c of data.clients) {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `<td>${c.id}</td><td>${c.clientId}</td><td>${c.name}</td><td>${c.isConfidential}</td>`;
+            body.appendChild(tr);
+        }
+    } catch (e) {
+        console.warn("Не удалось загрузить клиентов:", e.message);
+        $("clients-body").innerHTML = "";
     }
 }
 
