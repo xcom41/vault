@@ -1,4 +1,4 @@
-STRONG = "Tr0ub4dor&3-Correct-Horse"
+STRONG = "TnsiasRu-i3o283GF4923h2kl3hi2ghh72783h2"
 
 
 def _register(client, email="g@example.com"):
