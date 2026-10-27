@@ -112,6 +112,11 @@ python run.py
 * **`http://localhost:8000/graphql`** — Интерактивная среда выполнения GraphQL-запросов (GraphQL Playground).
 * **`http://localhost:8000/admin`** — Веб-интерфейс панели администратора.
 
+### Выдача прав админа пользователю
+```bash
+.\sqlite3.exe vault.db "UPDATE users SET is_admin = 1 WHERE email = 'user@example.com';"
+```
+
 ---
 
 ## 🔒 Безопасность и Бизнес-аудит
